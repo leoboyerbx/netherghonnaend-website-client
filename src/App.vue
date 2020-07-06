@@ -25,6 +25,9 @@
 import Card from './components/Card.vue'
 import Status from './components/Status'
 import UsersList from './components/UsersList'
+import io from 'socket.io-client'
+
+const socket = io.connect('http://nethergonnaend.cf:3654')
 
 export default {
   name: 'App',
@@ -35,13 +38,21 @@ export default {
   },
   data () {
     return {
-      online: true,
-      players: 2,
+      online: false,
+      players: 0,
       maxPlayers: 20,
-      onlinePlayers: [
-        'DouxLit',
-        'leobx'
-      ]
+      onlinePlayers: []
+    }
+  },
+  created () {
+    this.getRealTimeData()
+  },
+  methods: {
+    getRealTimeData () {
+      socket.emit('query')
+      socket.on('update', data => {
+
+      })
     }
   }
 }
