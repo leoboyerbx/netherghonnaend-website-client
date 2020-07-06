@@ -1,20 +1,20 @@
 <template>
-  <div id="app">
+  <div id="app" class="container">
     <div class="main-title">
       <h1>Nethergonnaend</h1>
       <p>Nether gonna give you up</p>
     </div>
     <div class="row">
-      <div class="col">
-        <Card class="status">
-          <h2>Statut</h2>
-          <p>Beueu</p>
-        </Card>
+      <div class="col-md">
+        <Status
+        :online="online"
+        :onlinePlayers="players"
+        :maxPlayers="maxPlayers" />
       </div>
-      <div class="col">
+      <div class="col-md">
         <Card class="players">
           <h2>Joueurs en ligne</h2>
-          <p>Hello</p>
+          <UsersList :usersList="onlinePlayers" />
         </Card>
       </div>
     </div>
@@ -23,11 +23,26 @@
 
 <script>
 import Card from './components/Card.vue'
+import Status from './components/Status'
+import UsersList from './components/UsersList'
 
 export default {
   name: 'App',
   components: {
-    Card
+    Card,
+    Status,
+    UsersList
+  },
+  data () {
+    return {
+      online: true,
+      players: 2,
+      maxPlayers: 20,
+      onlinePlayers: [
+        'DouxLit',
+        'leobx'
+      ]
+    }
   }
 }
 </script>
@@ -58,5 +73,11 @@ body {
 }
 .col {
   padding: 0 10px;
+}
+.players, .status {
+  margin-top: 20px;
+}
+h2 {
+  margin-bottom: 20px !important;
 }
 </style>
